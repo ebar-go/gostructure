@@ -17,6 +17,7 @@ type Queue interface {
 }
 
 type queue struct {
+	// 使用链表结构实现
 	list *list.List
 }
 
@@ -37,7 +38,7 @@ func (q queue) Pop() (interface{}) {
 }
 
 func (q queue) MPop(n int) ([]interface{}) {
-	if n < 1 {
+	if n < 1 { // 当n小于1，返回nil
 		return nil
 	}
 	var result []interface{}
@@ -45,14 +46,14 @@ func (q queue) MPop(n int) ([]interface{}) {
 	item := q.list.Front()
 
 	for i := 0; i <n ; i++ {
-		if item == nil {
+		if item == nil { // 判断元素是否为空
 			break
 		}
 
 		items = append(items, item)
 		item = item.Next()
 	}
-
+	// 获取元素并删除队列里对应的数据
 	for _, item := range items {
 		q.list.Remove(item)
 		result = append(result, item.Value)
