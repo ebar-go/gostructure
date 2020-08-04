@@ -33,6 +33,9 @@ func (q queue) Push(items ...interface{}) {
 
 func (q queue) Pop() (interface{}) {
 	item := q.list.Front()
+	if item == nil {
+	        return nil
+	}
 	q.list.Remove(item)
 	return item.Value
 }
